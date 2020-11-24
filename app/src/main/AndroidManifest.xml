@@ -3,26 +3,11 @@
     package="com.common.app">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <application android:name=".ui.App"
+    <application
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,MissingApplicationIcon"
         tools:targetApi="n">
-
-        <activity android:name=".ui.LoadingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Loading">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ui.MainActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.login.LoginActivity"
-            android:screenOrientation="portrait" />
 
         <!--android7.0+数据共享-->
         <provider android:name="androidx.core.content.FileProvider"

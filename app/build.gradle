@@ -1,26 +1,12 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
-        applicationId "com.common.app"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true
-
-    }
-
-    useLibrary 'org.apache.http.legacy'
-
-    signingConfigs {
-//        release {
-//            storeFile file("../shandiandai.jks")
-//            storePassword "shandiandai2016"
-//            keyAlias "sdd"
-//            keyPassword "shandiandai2016"
-//        }
     }
 
     buildTypes {
@@ -29,22 +15,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            def outputFile = output.outputFile
-            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                if (variant.buildType.name == "release") {
-                    outputFileName = "app_${defaultConfig.versionName}_${new Date().format("MMdd")}_release.apk"
-                } else if (variant.buildType.name == "debug") {
-                    outputFileName = "app_${defaultConfig.versionName}_${new Date().format("MMdd")}_debug.apk"
-                }
-            }
-        }
-
-    }
-
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
