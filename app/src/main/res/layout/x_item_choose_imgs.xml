@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.common.app.common.widget.HVSameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/empty"
+            android:scaleType="centerCrop" />
+
+        <androidx.appcompat.widget.AppCompatCheckedTextView
+            android:id="@+id/check"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="4dp"
+            android:background="@drawable/x_selector_choose_all" />
+
+        <TextView
+            android:id="@+id/tv_camera"
+            style="@style/text_size10_color_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/x_camera_bg"
+            android:gravity="center"
+            android:text="@string/take_photos"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</com.common.app.common.widget.HVSameLayout>

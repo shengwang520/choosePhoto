@@ -1,0 +1,79 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@null</item>
+
+        <item name="android:textColorHint">@color/color_989898</item>
+        <item name="colorControlNormal">@color/color_989898</item>
+        <item name="colorControlActivated">@color/color_989898</item>
+        <item name="colorControlHighlight">@color/color_222222</item>
+
+        <item name="actionMenuTextColor">@color/color_040717</item>
+
+        <item name="android:windowAnimationStyle">@style/MyWindowAnimTheme</item>
+
+    </style>
+
+    <style name="AppTheme.immersion" parent="AppTheme" >
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="Translucent" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/color_transparent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="MyWindowAnimTheme">
+        <item name="android:activityOpenEnterAnimation">@anim/x_slide_in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/x_slide_out_to_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/x_slide_out_to_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/x_slide_in_from_left</item>
+    </style>
+
+    <!--启动页主题 windowBackground 设置相应启动页图片-->
+    <style name="Theme.Loading" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/color_040717</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="TabItemText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ToolbarText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/color_222222</item>
+    </style>
+
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <!-- 加载滚动条样式 -->
+    <style name="loading_style">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateDrawable">@drawable/x_loading_gif</item>
+        <item name="android:indeterminateDuration">1000</item>
+        <item name="android:indeterminateOnly">true</item>
+    </style>
+
+    <style name="PopupAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/x_push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/x_push_bottom_out</item>
+    </style>
+</resources>

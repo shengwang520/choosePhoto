@@ -1,0 +1,33 @@
+<resources>
+
+    <string name="empty">" "</string>
+    <string name="waiting_loading">正在加载…</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="take_photos">拍摄照片</string>
+    <string name="sms_code">重获验证码</string>
+    <string name="loading_data">数据加载中…</string>
+    <string name="load_fail_pull_down_retry">加载失败，下拉重试</string>
+    <string name="load_no_data_pull_down_refresh">暂无数据，下拉刷新</string>
+    <string name="latest_version">当前版本已是最新版本</string>
+    <string name="downing">正在下载中…</string>
+    <string name="confirm_s">确定(%s)</string>
+    <string name="least_one_choice">至少选择一张</string>
+    <string name="selector_picture">选择图片</string>
+    <string name="choose_more_pictures_s">最多选择%s张图片</string>
+    <string name="try_again_exit">再按一次返回退出</string>
+    <string name="unit_year">年</string>
+    <string name="unit_month">月</string>
+    <string name="unit_day">日</string>
+    <string name="unit_hours">时</string>
+    <string name="unit_mins">分</string>
+    <string name="unit_seconds">秒</string>
+    <string name="image_save_success">图片已保存至本地</string>
+    <string name="image_save_fail">图片保存失败</string>
+    <string name="whether_save_photo">是否保存该图片</string>
+    <string name="update_now">立即更新</string>
+
+    <string name="api_error_405">请求超时，请稍候再试</string>
+    <string name="api_error_404">网络异常</string>
+
+</resources>
