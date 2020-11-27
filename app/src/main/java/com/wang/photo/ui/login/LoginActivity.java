@@ -4,8 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.common.app.R;
-import com.wang.photo.common.base.BaseActivity;
+import com.wang.choosephoto.base.BaseActivity;
+import com.wang.photo.R;
+
 
 /**
  * 登录界面
