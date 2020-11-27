@@ -7,6 +7,11 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
     }
 
     buildTypes {
@@ -22,7 +27,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api 'com.orhanobut:logger:1.4'//打印数据框架
 
-    api 'com.google.code.gson:gson:2.8.5'
+    api 'com.google.code.gson:gson:2.8.6'
     api 'de.hdodenhof:circleimageview:3.0.0'//圆角控件
     api 'com.github.chrisbanes.photoview:library:1.2.4'//图片手势放大缩小
 
@@ -32,23 +37,23 @@ dependencies {
     api('org.apache.httpcomponents:httpcore:4.4.10')
 
     //图片加载库
-    api 'com.github.bumptech.glide:glide:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    api 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     api 'com.github.yalantis:ucrop:2.2.5'//图片裁切
 
     api 'com.contrarywind:Android-PickerView:4.1.9'//选择器
 
-    api 'com.squareup.okhttp3:okhttp:3.12.1'
+    api 'com.squareup.okhttp3:okhttp:4.2.1'
     //RxJava库的引用
     api 'io.reactivex.rxjava2:rxandroid:2.0.1'
     api 'io.reactivex.rxjava2:rxjava:2.2.2'
 
     //retrofit网络请求框架的引用
-    api 'com.squareup.retrofit2:retrofit:2.3.0'
-    api 'com.squareup.retrofit2:converter-gson:2.3.0'
+    api 'com.squareup.retrofit2:retrofit:2.7.2'
+    api 'com.squareup.retrofit2:converter-gson:2.7.2'
     api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    api 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    api 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 
     api 'org.greenrobot:eventbus:3.1.1'//事件通知处理
 

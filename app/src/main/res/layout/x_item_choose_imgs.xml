@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.common.app.common.widget.HVSameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.wang.photo.common.widget.HVSameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -34,4 +34,4 @@
             android:text="@string/take_photos"
             android:textStyle="bold" />
     </RelativeLayout>
-</com.common.app.common.widget.HVSameLayout>
+</com.wang.photo.common.widget.HVSameLayout>
