@@ -1,11 +1,51 @@
 # choosePhoto  图片选择库
 
-# 使用
+# 引入
 ## Step 1. Add the JitPack repository to your build file
 * maven { url 'https://jitpack.io' }
 
 ## Step 2. Add the dependency
-* api 'com.github.shengwang520:choosePhoto:1.0.04'
+* api 'com.github.shengwang520:choosePhoto:1.0.05'
+
+# 使用
+## 获取图片
+### 配置图片获取宽高
+* FileOptions.width=500;
+* FileOptions.height=500;
+
+### 获取数据
+* FileCompat fileCompat = new FileCompat(this, new CallBack() {
+            @Override
+            public void onSuccess(List<com.media.imagechoose.model.FileFolder> results) {
+                popWindow.init(results);
+                imageFolder = results.get(0);
+                holder.initImageFolder(imageFolder.getName());
+                initImgs();
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+        fileCompat.loadImages();
+
+## 获取视频
+* FileCompat fileCompat = new FileCompat(this, new CallBack() {
+            @Override
+            public void onSuccess(List<com.media.imagechoose.model.FileFolder> results) {
+                popWindow.init(results);
+                imageFolder = results.get(0);
+                holder.initImageFolder(imageFolder.getName());
+                initImgs();
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+        fileCompat.loadVideos();
 
 ##  Changelog
 
