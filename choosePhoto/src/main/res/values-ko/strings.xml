@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="all_images">모든 사진</string>
+    <string name="all_videos">모든 영상</string>
+</resources>

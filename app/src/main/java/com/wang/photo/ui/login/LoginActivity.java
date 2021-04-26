@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.wang.choosephoto.base.BaseActivity;
+import com.wang.media.base.BaseActivity;
 import com.wang.photo.R;
 
 

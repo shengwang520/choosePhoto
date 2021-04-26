@@ -2,8 +2,8 @@ package com.wang.photo.ui;
 
 import android.os.Bundle;
 
-import com.wang.choosephoto.base.BaseActivity;
-import com.wang.choosephoto.utils.AppCompat;
+import com.wang.media.base.BaseActivity;
+import com.wang.media.utils.AppCompat;
 
 
 /**

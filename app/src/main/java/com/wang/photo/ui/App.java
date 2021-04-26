@@ -1,7 +1,7 @@
 package com.wang.photo.ui;
 
 
-import com.wang.choosephoto.base.BaseApplication;
+import com.wang.media.base.BaseApplication;
 
 public class App extends BaseApplication {
 
