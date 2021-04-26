@@ -8,6 +8,8 @@
 * api 'com.github.shengwang520:choosePhoto:1.0.05'
 
 # 使用
+* 需要权限：android.permission.READ_EXTERNAL_STORAGE，android.permission.WRITE_EXTERNAL_STORAGE
+
 ## 1.获取图片
 ### 配置图片获取最小宽高，满足1条即为有效数据
 * FileOptions.width=500;
