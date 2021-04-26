@@ -86,8 +86,8 @@ public class FileCompat implements ILoadFile {
                 .filter(new Predicate<FileBean>() {
                     @Override
                     public boolean test(@NotNull FileBean fileBean) {
-                        return fileBean.width >= 800
-                                || fileBean.height >= 800;
+                        return fileBean.width >= FileOptions.width
+                                || fileBean.height >= FileOptions.height;
                     }
                 })
                 .filter(new Predicate<FileBean>() {
