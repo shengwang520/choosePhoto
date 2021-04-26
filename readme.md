@@ -1,4 +1,4 @@
-# choosePhoto  图片选择库
+# choosePhoto  图片选择库 适配安卓10+
 
 # 引入
 ## Step 1. Add the JitPack repository to your build file
