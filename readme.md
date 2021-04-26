@@ -7,9 +7,16 @@
 ## Step 2. Add the dependency
 * api 'com.github.shengwang520:choosePhoto:1.0.04'
 
+##  Changelog
 
-License
--------
+### Version:1.0.05
+* 添加安卓10+适配
+* 移除无用代码
+
+### Version:1.0.04
+* 初始版本
+
+##  License
 
     Copyright 2021 shengwang520
 
