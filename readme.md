@@ -45,6 +45,12 @@
         });
         fileCompat.loadVideos();
 
+## 3.获取上传文件路径
+* String path=FileBean.getUploadFilePath(context);
+
+## 4.获取显示文件的地址（安卓10以上路径是Uri）
+* String path=FileBean.getFilePathQ(context);
+
 ##  Changelog
 
 ### Version:1.0.05
