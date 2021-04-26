@@ -5,11 +5,11 @@ apply plugin: 'com.github.dcendents.android-maven'    // 添加本行
 group='com.github.shengwang520'    // 添加本行
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 4
         versionName "1.0.04"
     }
@@ -36,7 +36,7 @@ dependencies {
     api 'de.hdodenhof:circleimageview:3.0.0'//圆角控件
     api 'com.github.chrisbanes.photoview:library:1.2.4'//图片手势放大缩小
 
-    api 'com.karumi:dexter:6.0.2'//6.0+权限管理
+    api 'com.karumi:dexter:6.2.2'//6.0+权限管理
 
     api 'com.jude:easyrecyclerview:4.4.2' //列表的扩展
     api 'org.apache.httpcomponents:httpcore:4.4.10'
@@ -45,7 +45,7 @@ dependencies {
     api 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
-    api 'com.github.yalantis:ucrop:2.2.5'//图片裁切
+    api 'com.github.yalantis:ucrop:2.2.6'//图片裁切
 
     api 'com.contrarywind:Android-PickerView:4.1.9'//选择器
 
