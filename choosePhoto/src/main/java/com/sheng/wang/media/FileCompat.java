@@ -39,10 +39,10 @@ import io.reactivex.schedulers.Schedulers;
  * 本地文件扫描
  */
 public class FileCompat implements ILoadFile {
-    private Context context;
-    private List<FileFolder> listImages;
-    private CallBack callBack;
-    private HashMap<String, Integer> tmpDir = new HashMap<>();//临时的辅助类，用于防止同一个文件夹的多次扫描
+    private final Context context;
+    private final List<FileFolder> listImages;
+    private final CallBack callBack;
+    private final HashMap<String, Integer> tmpDir = new HashMap<>();//临时的辅助类，用于防止同一个文件夹的多次扫描
 
     @RequiresPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
     public FileCompat(Context context, CallBack callBack) {
@@ -189,8 +189,7 @@ public class FileCompat implements ILoadFile {
                                 imageBean.videoTime = duration;
                                 imageBean.createTime = time;
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                                    String orientation = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.ORIENTATION));
-                                    imageBean.rotation = orientation;
+                                    imageBean.rotation = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.ORIENTATION));
                                 }
                                 Logger.d("file query video:" + imageBean.toString());
                                 e.onNext(imageBean);
