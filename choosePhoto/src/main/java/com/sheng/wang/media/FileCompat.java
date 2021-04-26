@@ -1,11 +1,14 @@
 package com.sheng.wang.media;
 
+import android.Manifest;
 import android.content.Context;
 import android.database.Cursor;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+
+import androidx.annotation.RequiresPermission;
 
 import com.orhanobut.logger.Logger;
 import com.sheng.wang.media.impl.CallBack;
@@ -41,6 +44,7 @@ public class FileCompat implements ILoadFile {
     private CallBack callBack;
     private HashMap<String, Integer> tmpDir = new HashMap<>();//临时的辅助类，用于防止同一个文件夹的多次扫描
 
+    @RequiresPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
     public FileCompat(Context context, CallBack callBack) {
         this.context = context;
         this.callBack = callBack;
