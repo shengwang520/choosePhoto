@@ -10,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 4
-        versionName "1.0.04"
+        versionCode 5
+        versionName "1.0.05"
     }
 
     buildTypes {
@@ -29,11 +29,9 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
-    api 'androidx.multidex:multidex:2.0.1'//对dex文件的优化，解决方法数过多产生的问题
     api 'com.orhanobut:logger:1.4'//打印数据框架
 
     api 'com.google.code.gson:gson:2.8.6'
-    api 'de.hdodenhof:circleimageview:3.0.0'//圆角控件
     api 'com.github.chrisbanes.photoview:library:1.2.4'//图片手势放大缩小
 
     api 'com.karumi:dexter:6.2.2'//6.0+权限管理
@@ -47,22 +45,10 @@ dependencies {
 
     api 'com.github.yalantis:ucrop:2.2.6'//图片裁切
 
-    api 'com.contrarywind:Android-PickerView:4.1.9'//选择器
-
     api 'com.squareup.okhttp3:okhttp:4.2.1'
     //RxJava库的引用
     api 'io.reactivex.rxjava2:rxandroid:2.0.1'
     api 'io.reactivex.rxjava2:rxjava:2.2.2'
-
-    //retrofit网络请求框架的引用
-    api 'com.squareup.retrofit2:retrofit:2.7.2'
-    api 'com.squareup.retrofit2:converter-gson:2.7.2'
-    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    api 'com.squareup.okhttp3:logging-interceptor:4.2.1'
-
-    api 'org.greenrobot:eventbus:3.1.1'//事件通知处理
-
-    api 'com.jjoe64:graphview:4.2.2'
 
 }
 
