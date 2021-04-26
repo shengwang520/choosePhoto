@@ -8,13 +8,14 @@
 * api 'com.github.shengwang520:choosePhoto:1.0.05'
 
 # 使用
-## 获取图片
+## 1.获取图片
 ### 配置图片获取最小宽高，满足1条即为有效数据
 * FileOptions.width=500;
 * FileOptions.height=500;
 
 ### 获取数据
 * FileCompat fileCompat = new FileCompat(this, new CallBack() {
+
             @Override
             public void onSuccess(List<FileFolder> results) {
                //数据获取成功
@@ -27,8 +28,9 @@
         });
         fileCompat.loadImages();
 
-## 获取视频
+## 2.获取视频
 * FileCompat fileCompat = new FileCompat(this, new CallBack() {
+
             @Override
             public void onSuccess(List<FileFolder> results) {
                //数据获取成功
