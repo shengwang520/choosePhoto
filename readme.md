@@ -9,23 +9,20 @@
 
 # 使用
 ## 获取图片
-### 配置图片获取宽高
+### 配置图片获取最小宽高，满足1条即为有效数据
 * FileOptions.width=500;
 * FileOptions.height=500;
 
 ### 获取数据
 * FileCompat fileCompat = new FileCompat(this, new CallBack() {
             @Override
-            public void onSuccess(List<com.media.imagechoose.model.FileFolder> results) {
-                popWindow.init(results);
-                imageFolder = results.get(0);
-                holder.initImageFolder(imageFolder.getName());
-                initImgs();
+            public void onSuccess(List<FileFolder> results) {
+               //数据获取成功
             }
 
             @Override
             public void onError() {
-
+                //数据获取失败
             }
         });
         fileCompat.loadImages();
@@ -33,16 +30,13 @@
 ## 获取视频
 * FileCompat fileCompat = new FileCompat(this, new CallBack() {
             @Override
-            public void onSuccess(List<com.media.imagechoose.model.FileFolder> results) {
-                popWindow.init(results);
-                imageFolder = results.get(0);
-                holder.initImageFolder(imageFolder.getName());
-                initImgs();
+            public void onSuccess(List<FileFolder> results) {
+               //数据获取成功
             }
 
             @Override
             public void onError() {
-
+                //数据获取失败
             }
         });
         fileCompat.loadVideos();
