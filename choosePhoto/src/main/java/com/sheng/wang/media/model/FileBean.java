@@ -1,4 +1,4 @@
-package com.wang.media.model;
+package com.sheng.wang.media.model;
 
 import android.content.Context;
 import android.os.Build;
@@ -7,8 +7,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.wang.media.impl.IFile;
-import com.wang.media.utils.FileUtils;
+import com.sheng.wang.media.impl.IFile;
+import com.sheng.wang.media.utils.FileUtils;
 
 import java.io.File;
 

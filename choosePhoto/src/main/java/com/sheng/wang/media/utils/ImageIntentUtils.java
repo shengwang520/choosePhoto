@@ -1,4 +1,4 @@
-package com.wang.media.utils;
+package com.sheng.wang.media.utils;
 
 import android.app.Activity;
 import android.content.Intent;

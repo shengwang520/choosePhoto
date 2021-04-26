@@ -1,7 +1,7 @@
-package com.wang.media.impl;
+package com.sheng.wang.media.impl;
 
 
-import com.wang.media.model.FileFolder;
+import com.sheng.wang.media.model.FileFolder;
 
 import java.util.List;
 

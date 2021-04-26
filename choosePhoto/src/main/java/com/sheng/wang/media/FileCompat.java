@@ -1,4 +1,4 @@
-package com.wang.media;
+package com.sheng.wang.media;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -8,11 +8,12 @@ import android.os.Build;
 import android.provider.MediaStore;
 
 import com.orhanobut.logger.Logger;
-import com.wang.media.impl.CallBack;
-import com.wang.media.impl.IFile;
-import com.wang.media.impl.ILoadFile;
-import com.wang.media.model.FileBean;
-import com.wang.media.model.FileFolder;
+import com.sheng.wang.media.impl.CallBack;
+import com.sheng.wang.media.impl.IFile;
+import com.sheng.wang.media.impl.ILoadFile;
+import com.sheng.wang.media.model.FileBean;
+import com.sheng.wang.media.model.FileFolder;
+import com.wang.media.R;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,4 +1,4 @@
-package com.wang.media.model;
+package com.sheng.wang.media.model;
 
 import android.text.TextUtils;
 

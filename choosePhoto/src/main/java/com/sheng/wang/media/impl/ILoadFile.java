@@ -1,4 +1,4 @@
-package com.wang.media.impl;
+package com.sheng.wang.media.impl;
 
 public interface ILoadFile {
 
