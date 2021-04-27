@@ -53,6 +53,9 @@
 
 ##  Changelog
 
+### Version:1.0.07
+* 移除权限判断，添加demo示例
+
 ### Version:1.0.06
 * 删除无用资源库，减轻sdk大小
 
