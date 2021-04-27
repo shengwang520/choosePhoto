@@ -10,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 5
-        versionName "1.0.05"
+        versionCode 6
+        versionName "1.0.06"
     }
 
     buildTypes {
@@ -30,21 +30,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     api 'com.orhanobut:logger:1.4'//打印数据框架
-
-    api 'com.google.code.gson:gson:2.8.6'
-    api 'com.github.chrisbanes.photoview:library:1.2.4'//图片手势放大缩小
-
-    api 'com.karumi:dexter:6.2.2'//6.0+权限管理
-
-    api 'com.jude:easyrecyclerview:4.4.2' //列表的扩展
-    api 'org.apache.httpcomponents:httpcore:4.4.10'
-
-    //图片加载库
-    api 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-
-    api 'com.github.yalantis:ucrop:2.2.6'//图片裁切
-
     api 'com.squareup.okhttp3:okhttp:4.2.1'
     //RxJava库的引用
     api 'io.reactivex.rxjava2:rxandroid:2.0.1'
