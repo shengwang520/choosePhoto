@@ -5,7 +5,7 @@
 * maven { url 'https://jitpack.io' }
 
 ## Step 2. Add the dependency
-* api 'com.github.shengwang520:choosePhoto:1.0.05'
+* api 'com.github.shengwang520:choosePhoto:1.0.07'
 
 # 使用
 * 需要权限：android.permission.READ_EXTERNAL_STORAGE，android.permission.WRITE_EXTERNAL_STORAGE
