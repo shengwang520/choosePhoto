@@ -6,11 +6,11 @@ plugins {
 afterEvaluate {
     publishing {
         publications {
-            release(MavenPublication) {
+            mavenJava(MavenPublication) {
                 from components.release
                 groupId = 'com.github.shengwang520'
                 artifactId = 'choosePhoto'
-                version = '1.0.0'
+                version = "1.0.08"
             }
         }
     }
