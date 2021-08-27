@@ -5,15 +5,11 @@ plugins {
 android {
     compileSdkVersion 31
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 31
+        minSdk 21
+        targetSdk 31
         versionCode 8
         versionName "1.0.08"
 
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_11
-            targetCompatibility JavaVersion.VERSION_11
-        }
     }
 
     buildTypes {
@@ -21,6 +17,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 }
 
