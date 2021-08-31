@@ -17,28 +17,36 @@
 
 ### 获取数据
 * FileCompat fileCompat = new FileCompat(this, new CallBack() {
+* 
             @Override
             public void onSuccess(List<FileFolder> results) {
                //数据获取成功
             }
+            
             @Override
             public void onError() {
                 //数据获取失败
             }
+            
         });
+        
         fileCompat.loadImages();
 
 ## 2.获取视频
 * FileCompat fileCompat = new FileCompat(this, new CallBack() {
+* 
             @Override
             public void onSuccess(List<FileFolder> results) {
                //数据获取成功
             }
+            
             @Override
             public void onError() {
                 //数据获取失败
             }
+            
         });
+        
         fileCompat.loadVideos();
 
 ## 3.获取上传文件路径
@@ -48,9 +56,6 @@
 * String path=FileBean.getFilePathQ(context);
 
 ##  Changelog
-
-### Version:1.0.08
-* 升级编译环境
 
 ### Version:1.0.07
 * 移除权限判断，添加demo示例
