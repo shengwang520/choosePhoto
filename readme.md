@@ -17,7 +17,7 @@
 
 ### 获取数据
 * FileCompat fileCompat = new FileCompat(this, new CallBack() {
-* 
+
             @Override
             public void onSuccess(List<FileFolder> results) {
                //数据获取成功
@@ -34,7 +34,7 @@
 
 ## 2.获取视频
 * FileCompat fileCompat = new FileCompat(this, new CallBack() {
-* 
+
             @Override
             public void onSuccess(List<FileFolder> results) {
                //数据获取成功
