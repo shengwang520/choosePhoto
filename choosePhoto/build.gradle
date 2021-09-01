@@ -4,6 +4,19 @@ plugins {
     id 'maven-publish'
 }
 
+afterEvaluate {
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.release
+                groupId = 'com.github.shengwang520'
+                artifactId = 'choosePhoto'
+                version = "1.0.08"
+            }
+        }
+    }
+}
+
 android {
     compileSdkVersion 31
 
@@ -19,39 +32,17 @@ android {
         }
     }
     compileOptions {
-        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
-        useIR = true
     }
 
-    lintOptions {
-        abortOnError false
-    }
-
-    afterEvaluate {
-        publishing {
-            publications {
-                mavenJava(MavenPublication) {
-                    from components.release
-                    groupId = 'com.github.shengwang520'
-                    artifactId = 'choosePhoto'
-                    version = "1.0.09"
-                }
-            }
-        }
-    }
 }
 
 dependencies {
-    configurations.all {
-        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-        resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
-    }
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     api 'com.orhanobut:logger:1.4'//打印数据框架
