@@ -4,18 +4,7 @@ plugins {
     id 'maven-publish'
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.release
-                groupId = 'com.github.shengwang520'
-                artifactId = 'choosePhoto'
-                version = "1.0.09"
-            }
-        }
-    }
-}
+
 
 android {
     compileSdkVersion 31
@@ -32,12 +21,31 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = JavaVersion.VERSION_11.toString()
+        useIR = true
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    afterEvaluate {
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    from components.release
+                    groupId = 'com.github.shengwang520'
+                    artifactId = 'choosePhoto'
+                    version = "1.0.09"
+                }
+            }
+        }
     }
 }
 
