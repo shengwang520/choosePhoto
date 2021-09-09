@@ -5,7 +5,7 @@
 * maven { url '<https://jitpack.io>' }
 
 ## Step 2. Add the dependency
-* api 'com.github.shengwang520:choosePhoto:1.0.07'
+* api 'com.github.shengwang520:choosePhoto:1.0.10'
 
 # 使用
 * 需要权限：android.permission.READ_EXTERNAL_STORAGE，android.permission.WRITE_EXTERNAL_STORAGE
@@ -55,7 +55,12 @@
 ## 4.获取显示文件的地址（安卓10以上路径是Uri）
 * String path=FileBean.getFilePathQ(context);
 
-##  Changelog
+## Changelog
+
+### Version:1.0.10
+* 调整代码语言为kotlin
+* 新增设置视频选择范围配置
+* 修复部分手机获取不到文件后缀出现的崩溃问题
 
 ### Version:1.0.09
 * 升级编译环境为7.0.1
@@ -74,7 +79,7 @@
 ### Version:1.0.04
 * 初始版本
 
-##  License
+## License
 
     Copyright 2021 shengwang520
 
