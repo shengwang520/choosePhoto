@@ -205,8 +205,11 @@ public class FileUtils {
      * @param path 原文件路径
      */
     private static String getFileNewName(String path) {
-        String fileName = System.currentTimeMillis() + path.substring(path.lastIndexOf("."));
-        Logger.d("file new name", fileName);
-        return fileName;
+        try {
+            return System.currentTimeMillis() + path.substring(path.lastIndexOf("."));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return String.valueOf(System.currentTimeMillis());
     }
 }
