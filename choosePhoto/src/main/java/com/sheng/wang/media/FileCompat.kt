@@ -31,8 +31,19 @@ class FileCompat(private val context: Context, private val callBack: CallBack?) 
         Observable
             .create<FileBean> { e ->
                 val mCursor =
-                    context.contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, arrayOf(MediaStore.Images.ImageColumns.DATA, MediaStore.Images.Media._ID, MediaStore.Images.Media.WIDTH, MediaStore.Images.Media.HEIGHT, MediaStore.Images.Media.DATE_ADDED), "", null,
-                        MediaStore.MediaColumns.DATE_ADDED + " DESC")
+                    context.contentResolver.query(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        arrayOf(
+                            MediaStore.Images.ImageColumns.DATA,
+                            MediaStore.Images.Media._ID,
+                            MediaStore.Images.Media.WIDTH,
+                            MediaStore.Images.Media.HEIGHT,
+                            MediaStore.Images.Media.DATE_ADDED
+                        ),
+                        "",
+                        null,
+                        MediaStore.MediaColumns.DATE_ADDED + " DESC"
+                    )
                 if (mCursor != null && mCursor.moveToFirst()) {
                     do {
                         val path =
@@ -88,8 +99,12 @@ class FileCompat(private val context: Context, private val callBack: CallBack?) 
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<FileFolder> {
-                override fun onSubscribe(d: Disposable) {}
-                override fun onNext(imageFolder: FileFolder) {}
+                override fun onSubscribe(d: Disposable) {
+                }
+
+                override fun onNext(imageFolder: FileFolder) {
+                }
+
                 override fun onError(e: Throwable) {
                     callBack?.onError()
                 }
@@ -105,9 +120,20 @@ class FileCompat(private val context: Context, private val callBack: CallBack?) 
      */
     private val videoProjection: Array<String>
         get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            arrayOf(MediaStore.Video.VideoColumns.DATA, MediaStore.Video.Media.DURATION, MediaStore.Video.Media._ID, MediaStore.Video.Media.DATE_ADDED, MediaStore.Video.Media.ORIENTATION)
+            arrayOf(
+                MediaStore.Video.VideoColumns.DATA,
+                MediaStore.Video.Media.DURATION,
+                MediaStore.Video.Media._ID,
+                MediaStore.Video.Media.DATE_ADDED,
+                MediaStore.Video.Media.ORIENTATION
+            )
         } else {
-            arrayOf(MediaStore.Video.VideoColumns.DATA, MediaStore.Video.Media.DURATION, MediaStore.Video.Media._ID, MediaStore.Video.Media.DATE_ADDED)
+            arrayOf(
+                MediaStore.Video.VideoColumns.DATA,
+                MediaStore.Video.Media.DURATION,
+                MediaStore.Video.Media._ID,
+                MediaStore.Video.Media.DATE_ADDED
+            )
         }
 
     override fun loadVideos() {
@@ -117,9 +143,11 @@ class FileCompat(private val context: Context, private val callBack: CallBack?) 
         Observable
             .create<FileBean> { e ->
                 val mCursor =
-                    context.contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                    context.contentResolver.query(
+                        MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                         videoProjection, "", null,
-                        MediaStore.MediaColumns.DATE_ADDED + " DESC")
+                        MediaStore.MediaColumns.DATE_ADDED + " DESC"
+                    )
                 if (mCursor != null && mCursor.moveToFirst()) {
                     do {
                         val path =

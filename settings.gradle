@@ -1,3 +1,2 @@
 include ':choosePhoto'
-include ':app'
-
+include ':apptest'

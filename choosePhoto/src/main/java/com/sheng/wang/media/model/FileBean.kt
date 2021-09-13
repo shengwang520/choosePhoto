@@ -13,11 +13,7 @@ import java.io.File
 /**
  * 手机上的图片实体
  */
-class FileBean @JvmOverloads constructor(
-    isCamera: Boolean = false,
-    filePath: String? = "",
-    type: String? = IFile.Type.FILE_TYPE_IMAGE,
-    des: String? = "") :
+class FileBean :
     IFile, Parcelable {
     /**
      * 文件本地路径
@@ -84,6 +80,19 @@ class FileBean @JvmOverloads constructor(
      */
     var isCamera = false
 
+    @JvmOverloads
+    constructor(
+        isCamera: Boolean = false,
+        filePath: String? = "",
+        type: String? = IFile.Type.FILE_TYPE_IMAGE,
+        des: String? = ""
+    ) {
+        this.isCamera = isCamera
+        this.filePath = filePath
+        this.type = type
+        this.des = des
+    }
+
     /**
      * 获取父类文件名称
      */
@@ -102,7 +111,8 @@ class FileBean @JvmOverloads constructor(
      */
     val filePathQ: String?
         get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Environment.isExternalStorageLegacy() &&
-            !TextUtils.isEmpty(fileUri)) {
+            !TextUtils.isEmpty(fileUri)
+        ) {
             fileUri
         } else {
             filePath
@@ -112,7 +122,10 @@ class FileBean @JvmOverloads constructor(
      * 获取要上传的文件路径
      */
     fun getUploadFilePath(context: Context?): String? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Environment.isExternalStorageLegacy() && !TextUtils.isEmpty(fileUri)) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Environment.isExternalStorageLegacy() && !TextUtils.isEmpty(
+                fileUri
+            )
+        ) {
             FileUtils.getUri2CachePath(context, filePath, fileUri)
         } else {
             filePath
@@ -123,7 +136,10 @@ class FileBean @JvmOverloads constructor(
      * 判断文件是否存在
      */
     val isExists: Boolean
-        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Environment.isExternalStorageLegacy() && !TextUtils.isEmpty(fileUri)) {
+        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Environment.isExternalStorageLegacy() && !TextUtils.isEmpty(
+                fileUri
+            )
+        ) {
             true
         } else {
             val file = File(filePath!!)
