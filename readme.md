@@ -5,7 +5,7 @@
 * maven { url '<https://jitpack.io>' }
 
 ## Step 2. Add the dependency
-* api 'com.github.shengwang520:choosePhoto:1.0.12'
+* api 'com.github.shengwang520:choosePhoto:1.0.13'
 
 # 使用
 * 需要权限：android.permission.READ_EXTERNAL_STORAGE，android.permission.WRITE_EXTERNAL_STORAGE
@@ -16,46 +16,57 @@
 * FileOptions.height=500;
 
 ### 获取数据
-* FileCompat fileCompat = new FileCompat(this, new CallBack() {
-
-            @Override
-            public void onSuccess(List<FileFolder> results) {
-               //数据获取成功
+* private fun loadImage() {
+        val fileCompat = FileCompat(this)
+        fileCompat.loadImages(object : CallBack.OnLoadFileFolderListener {
+            override fun onSuccess(results: List<FileFolder>) {
+                Logger.d("获取到的图片数量：" + results.size)
             }
-            
-            @Override
-            public void onError() {
-                //数据获取失败
+        }, object : CallBack.OnLoadErrorListener {
+            override fun onError() {
+                TODO("Not yet implemented")
             }
-            
-        });
-        
-        fileCompat.loadImages();
+        })
+    }
 
 ## 2.获取视频
-* FileCompat fileCompat = new FileCompat(this, new CallBack() {
-
-            @Override
-            public void onSuccess(List<FileFolder> results) {
-               //数据获取成功
+* private fun loadVideo() {
+        val fileCompat = FileCompat(this)
+        fileCompat.loadVideos(object : CallBack.OnLoadFileFolderListener {
+            override fun onSuccess(results: List<FileFolder>) {
+                Logger.d("获取到的视频数量：" + results.size)
             }
-            
-            @Override
-            public void onError() {
-                //数据获取失败
+        }, object : CallBack.OnLoadErrorListener {
+            override fun onError() {
+                TODO("Not yet implemented")
             }
-            
-        });
-        
-        fileCompat.loadVideos();
+        })
+    }
+## 3.获取图片和视频
+ * private fun loadImageAndVideo() {
+        val fileCompat = FileCompat(this)
+        fileCompat.loadImageAndVideos(object : CallBack.OnLoadFileListener {
+            override fun onSuccess(results: List<FileBean>) {
+                Logger.d("获取到的图片视频数量：" + results.size)
+            }
+        }, object : CallBack.OnLoadErrorListener {
+            override fun onError() {
+                TODO("Not yet implemented")
+            }
+        })
+    }
 
-## 3.获取上传文件路径
+## 4.获取上传文件路径
 * String path=FileBean.getUploadFilePath(context);
 
-## 4.获取显示文件的地址（安卓10以上路径是Uri）
+## 5.获取显示文件的地址（安卓10以上路径是Uri）
 * String path=FileBean.getFilePathQ(context);
 
 ## Changelog
+
+### Version:1.0.13
+* 重新设计回调，调整使用方式，与之前的版本不兼容，请参考最新文档使用
+* 新增获取所有图片和视频数据，按照时间降序
 
 ### Version:1.0.12
 * 修复图片查询失败

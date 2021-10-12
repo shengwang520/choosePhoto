@@ -20,11 +20,22 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * 本地文件扫描{Manifest.permission.READ_EXTERNAL_STORAGE}
+ * <P/>
+ * onLoadFileFolderListener 获取数据成功回调，包含父文件信息
+ * <p>onLoadErrorListener 获取数据失败<br>
+ * <p>onLoadFileListener 获取数据成功回调，没有父文件信息</p>
  */
-class FileCompat(private val context: Context, private val callBack: CallBack?) : ILoadFile {
+
+class FileCompat @JvmOverloads constructor(
+    private val context: Context
+) : ILoadFile {
     private val listImages: MutableList<FileFolder> = ArrayList()
     private val tmpDir = HashMap<String, Int>() //临时的辅助类，用于防止同一个文件夹的多次扫描
-    override fun loadImages() {
+
+    override fun loadImages(
+        onLoadFileFolderListener: CallBack.OnLoadFileFolderListener?,
+        onLoadErrorListener: CallBack.OnLoadErrorListener?
+    ) {
         val all = FileFolder()
         all.name = context.getString(R.string.all_images)
         listImages.add(all)
@@ -106,11 +117,11 @@ class FileCompat(private val context: Context, private val callBack: CallBack?) 
                 }
 
                 override fun onError(e: Throwable) {
-                    callBack?.onError()
+                    onLoadErrorListener?.onError()
                 }
 
                 override fun onComplete() {
-                    callBack?.onSuccess(listImages)
+                    onLoadFileFolderListener?.onSuccess(listImages)
                 }
             })
     }
@@ -136,7 +147,10 @@ class FileCompat(private val context: Context, private val callBack: CallBack?) 
             )
         }
 
-    override fun loadVideos() {
+    override fun loadVideos(
+        onLoadFileFolderListener: CallBack.OnLoadFileFolderListener?,
+        onLoadErrorListener: CallBack.OnLoadErrorListener?
+    ) {
         val all = FileFolder()
         all.name = context.getString(R.string.all_videos)
         listImages.add(all)
@@ -220,35 +234,58 @@ class FileCompat(private val context: Context, private val callBack: CallBack?) 
 
                 override fun onError(e: Throwable) {
                     Logger.d("find video onError:$e")
-                    callBack?.onError()
+                    onLoadErrorListener?.onError()
                 }
 
                 override fun onComplete() {
                     Logger.d("find video complete")
-                    callBack?.onSuccess(listImages)
+                    onLoadFileFolderListener?.onSuccess(listImages)
                 }
             })
     }
 
-    companion object {
-        /**
-         * 获取视频方向
-         *
-         * @param videoUrl 视频地址
-         */
-        private fun getRotation(videoUrl: String?): String? {
-            try {
-                val mediaMetadataRetriever = MediaMetadataRetriever()
-                mediaMetadataRetriever.setDataSource(videoUrl)
-                val rotation =
-                    mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION)
-                Logger.d("video rotation:$rotation")
-                return rotation
-            } catch (e: Exception) {
-                e.printStackTrace()
+    override fun loadImageAndVideos(
+        onLoadFileListener: CallBack.OnLoadFileListener?,
+        onLoadErrorListener: CallBack.OnLoadErrorListener?
+    ) {
+        val images: MutableList<FileBean> = java.util.ArrayList()
+        //先获取图片
+        loadImages(object : CallBack.OnLoadFileFolderListener {
+            override fun onSuccess(results: List<FileFolder>) {
+                images.addAll(results[0].images)
+
+                //再获取视频
+                loadVideos(object : CallBack.OnLoadFileFolderListener {
+                    override fun onSuccess(results: List<FileFolder>) {
+                        images.addAll(results[0].images)
+                        //按照时间排序
+                        images.sortBy { it.createTime }
+                        onLoadFileListener?.onSuccess(images)
+                    }
+                }, onLoadErrorListener)
             }
-            return "0"
+        }, onLoadErrorListener)
+
+    }
+
+
+    /**
+     * 获取视频方向
+     *
+     * @param videoUrl 视频地址
+     */
+    private fun getRotation(videoUrl: String?): String? {
+        try {
+            val mediaMetadataRetriever = MediaMetadataRetriever()
+            mediaMetadataRetriever.setDataSource(videoUrl)
+            val rotation =
+                mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION)
+            Logger.d("video rotation:$rotation")
+            return rotation
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
+        return "0"
     }
 
 }

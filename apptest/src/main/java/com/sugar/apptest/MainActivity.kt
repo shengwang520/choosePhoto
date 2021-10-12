@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.orhanobut.logger.Logger
 import com.sheng.wang.media.FileCompat
 import com.sheng.wang.media.impl.CallBack
+import com.sheng.wang.media.model.FileBean
 import com.sheng.wang.media.model.FileFolder
 import com.sugar.apptest.dexterpermission.DexterPermissionsUtil
 import com.sugar.apptest.dexterpermission.DexterPermissionsUtil.RECORD_WRITE_PERMISSION
@@ -39,27 +40,47 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadImage() {
-        val fileCompat = FileCompat(this, object : CallBack {
+        val fileCompat = FileCompat(this)
+        fileCompat.loadImages(object : CallBack.OnLoadFileFolderListener {
             override fun onSuccess(results: List<FileFolder>) {
                 Logger.d("获取到的图片数量：" + results.size)
             }
-
-            override fun onError() {}
+        }, object : CallBack.OnLoadErrorListener {
+            override fun onError() {
+                TODO("Not yet implemented")
+            }
         })
-        fileCompat.loadImages()
     }
 
     /**
      * 获取视频
      */
     private fun loadVideo() {
-        val fileCompat = FileCompat(this, object : CallBack {
+        val fileCompat = FileCompat(this)
+        fileCompat.loadVideos(object : CallBack.OnLoadFileFolderListener {
             override fun onSuccess(results: List<FileFolder>) {
                 Logger.d("获取到的视频数量：" + results.size)
             }
-
-            override fun onError() {}
+        }, object : CallBack.OnLoadErrorListener {
+            override fun onError() {
+                TODO("Not yet implemented")
+            }
         })
-        fileCompat.loadVideos()
+    }
+
+    /**
+     * 获取视频
+     */
+    private fun loadImageAndVideo() {
+        val fileCompat = FileCompat(this)
+        fileCompat.loadImageAndVideos(object : CallBack.OnLoadFileListener {
+            override fun onSuccess(results: List<FileBean>) {
+                Logger.d("获取到的图片视频数量：" + results.size)
+            }
+        }, object : CallBack.OnLoadErrorListener {
+            override fun onError() {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }
