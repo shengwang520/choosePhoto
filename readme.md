@@ -17,6 +17,7 @@
 
 ### 获取数据
 * private fun loadImage() {
+
         val fileCompat = FileCompat(this)
         fileCompat.loadImages(object : CallBack.OnLoadFileFolderListener {
             override fun onSuccess(results: List<FileFolder>) {
@@ -31,6 +32,7 @@
 
 ## 2.获取视频
 * private fun loadVideo() {
+
         val fileCompat = FileCompat(this)
         fileCompat.loadVideos(object : CallBack.OnLoadFileFolderListener {
             override fun onSuccess(results: List<FileFolder>) {
@@ -43,7 +45,8 @@
         })
     }
 ## 3.获取图片和视频
- * private fun loadImageAndVideo() {
+* private fun loadImageAndVideo() {
+
         val fileCompat = FileCompat(this)
         fileCompat.loadImageAndVideos(object : CallBack.OnLoadFileListener {
             override fun onSuccess(results: List<FileBean>) {
