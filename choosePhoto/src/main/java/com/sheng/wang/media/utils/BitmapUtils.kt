@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
+import android.os.Environment
 import com.orhanobut.logger.Logger
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -28,7 +29,8 @@ object BitmapUtils {
      * 删除图片缓存文件夹
      */
     fun deleteFile(context: Context) {
-        val oPath = context.filesDir.absolutePath + CACHE_IMG
+        val oPath =
+            context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)?.absolutePath + CACHE_IMG
         val file = File(oPath)
         if (!file.exists()) {
             file.mkdirs()
@@ -44,8 +46,9 @@ object BitmapUtils {
     /**
      * 获取图片缓存路径
      */
-    fun getCacheImageFile(context: Context): String {
-        val path = context.filesDir.absolutePath + CACHE_IMG
+    private fun getCacheImageFile(context: Context): String {
+        val path =
+            context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)?.absolutePath + CACHE_IMG
         val file = File(path)
         if (!file.exists()) {
             file.mkdir()
