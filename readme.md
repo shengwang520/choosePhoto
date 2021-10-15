@@ -5,7 +5,7 @@
 * maven { url '<https://jitpack.io>' }
 
 ## Step 2. Add the dependency
-* api 'com.github.shengwang520:choosePhoto:1.0.13'
+* api 'com.github.shengwang520:choosePhoto:1.0.14'
 
 # 使用
 * 需要权限：android.permission.READ_EXTERNAL_STORAGE，android.permission.WRITE_EXTERNAL_STORAGE
@@ -66,6 +66,9 @@
 * String path=FileBean.getFilePathQ(context);
 
 ## Changelog
+
+### Version:1.0.14
+* 修复FileBean数据判断equals方法
 
 ### Version:1.0.13
 * 重新设计回调，调整使用方式，与之前的版本不兼容，请参考最新文档使用
