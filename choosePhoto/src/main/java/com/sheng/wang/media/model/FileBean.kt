@@ -170,12 +170,12 @@ class FileBean :
 
     override fun equals(other: Any?): Boolean { //重写判断是否是同一个数据的标准
         var oPath: String? = ""
-        var oUrl = ""
+        var oUrl: String? = ""
         if (other is String) {
             oPath = other
         } else if (other is FileBean) {
             oPath = other.filePath
-            oUrl = other.fileUrl!!
+            oUrl = other.fileUrl
         }
         return if (!TextUtils.isEmpty(oUrl)) {
             TextUtils.equals(oUrl, fileUrl)
