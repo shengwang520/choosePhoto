@@ -67,6 +67,9 @@
 
 ## Changelog
 
+### Version:1.0.15
+* 新增bitmap保存方法
+
 ### Version:1.0.14
 * 修复FileBean数据判断equals方法
 

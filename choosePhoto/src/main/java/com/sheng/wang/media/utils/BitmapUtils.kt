@@ -226,6 +226,26 @@ object BitmapUtils {
         return returnBm
     }
 
+    /**
+     * 保存bitmap为jpg 图片
+     */
+    fun saveBitmap(context: Context, bm: Bitmap?): String? {
+        if (bm == null) return ""
+        val file = FileUtils.createFile(context, Environment.DIRECTORY_PICTURES, ".jpg")
+        var fos: FileOutputStream? = null
+        try {
+            fos = FileOutputStream(file)
+            bm.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            fos.flush()
+            return file.absolutePath
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            fos?.close()
+        }
+        return ""
+    }
+
     interface Callback {
         /**
          * 图片处理界面
