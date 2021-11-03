@@ -259,7 +259,7 @@ class FileCompat @JvmOverloads constructor(
                     override fun onSuccess(results: List<FileFolder>) {
                         images.addAll(results[0].images)
                         //按照时间排序
-                        images.sortBy { it.createTime }
+                        images.sortByDescending { it.createTime }
                         onLoadFileListener?.onSuccess(images)
                     }
                 }, onLoadErrorListener)

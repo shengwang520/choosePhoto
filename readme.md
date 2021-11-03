@@ -67,6 +67,9 @@
 
 ## Changelog
 
+### Version:1.0.16
+* 调整获取图片和视频排序为倒叙
+
 ### Version:1.0.15
 * 新增bitmap保存方法
 
