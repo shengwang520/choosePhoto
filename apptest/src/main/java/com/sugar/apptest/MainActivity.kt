@@ -76,6 +76,9 @@ class MainActivity : AppCompatActivity() {
         fileCompat.loadImageAndVideos(object : CallBack.OnLoadFileListener {
             override fun onSuccess(results: List<FileBean>) {
                 Logger.d("获取到的图片视频数量：" + results.size)
+                for (item in results) {
+                    Logger.d("load data path:" + item.filePathQ)
+                }
             }
         }, object : CallBack.OnLoadErrorListener {
             override fun onError() {

@@ -38,6 +38,8 @@ class FileCompat @JvmOverloads constructor(
     ) {
         val all = FileFolder()
         all.name = context.getString(R.string.all_images)
+        listImages.clear()
+        tmpDir.clear()
         listImages.add(all)
         Observable
             .create<FileBean> { e ->
@@ -153,6 +155,8 @@ class FileCompat @JvmOverloads constructor(
     ) {
         val all = FileFolder()
         all.name = context.getString(R.string.all_videos)
+        listImages.clear()
+        tmpDir.clear()
         listImages.add(all)
         Observable
             .create<FileBean> { e ->
@@ -253,27 +257,17 @@ class FileCompat @JvmOverloads constructor(
         loadImages(object : CallBack.OnLoadFileFolderListener {
             override fun onSuccess(results: List<FileFolder>) {
                 images.addAll(results[0].images)
-                nextLoadVideo(images, onLoadFileListener, onLoadErrorListener)
-            }
-        }, onLoadErrorListener)
-
-    }
-
-    //再获取视频
-    private fun nextLoadVideo(
-        images: MutableList<FileBean>, onLoadFileListener: CallBack.OnLoadFileListener?,
-        onLoadErrorListener: CallBack.OnLoadErrorListener?
-    ) {
-        loadVideos(object : CallBack.OnLoadFileFolderListener {
-            override fun onSuccess(results: List<FileFolder>) {
-                images.addAll(results[0].images)
-                //按照时间排序
-                images.sortByDescending { it.createTime }
-                onLoadFileListener?.onSuccess(images)
+                loadVideos(object : CallBack.OnLoadFileFolderListener {
+                    override fun onSuccess(results: List<FileFolder>) {
+                        images.addAll(results[0].images)
+                        //按照时间排序
+                        images.sortByDescending { it.createTime }
+                        onLoadFileListener?.onSuccess(images)
+                    }
+                }, onLoadErrorListener)
             }
         }, onLoadErrorListener)
     }
-
 
     /**
      * 获取视频方向
