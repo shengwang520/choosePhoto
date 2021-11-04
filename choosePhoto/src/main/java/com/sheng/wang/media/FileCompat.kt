@@ -248,24 +248,30 @@ class FileCompat @JvmOverloads constructor(
         onLoadFileListener: CallBack.OnLoadFileListener?,
         onLoadErrorListener: CallBack.OnLoadErrorListener?
     ) {
-        val images: MutableList<FileBean> = java.util.ArrayList()
+        val images: MutableList<FileBean> = ArrayList()
         //先获取图片
         loadImages(object : CallBack.OnLoadFileFolderListener {
             override fun onSuccess(results: List<FileFolder>) {
                 images.addAll(results[0].images)
-
-                //再获取视频
-                loadVideos(object : CallBack.OnLoadFileFolderListener {
-                    override fun onSuccess(results: List<FileFolder>) {
-                        images.addAll(results[0].images)
-                        //按照时间排序
-                        images.sortByDescending { it.createTime }
-                        onLoadFileListener?.onSuccess(images)
-                    }
-                }, onLoadErrorListener)
+                nextLoadVideo(images, onLoadFileListener, onLoadErrorListener)
             }
         }, onLoadErrorListener)
 
+    }
+
+    //再获取视频
+    private fun nextLoadVideo(
+        images: MutableList<FileBean>, onLoadFileListener: CallBack.OnLoadFileListener?,
+        onLoadErrorListener: CallBack.OnLoadErrorListener?
+    ) {
+        loadVideos(object : CallBack.OnLoadFileFolderListener {
+            override fun onSuccess(results: List<FileFolder>) {
+                images.addAll(results[0].images)
+                //按照时间排序
+                images.sortByDescending { it.createTime }
+                onLoadFileListener?.onSuccess(images)
+            }
+        }, onLoadErrorListener)
     }
 
 

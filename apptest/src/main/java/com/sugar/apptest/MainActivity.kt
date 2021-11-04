@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             this,
             object : DexterPermissionsUtil.CallBack {
                 override fun showPermissionGranted(permission: String?) {
-                    loadImage()
+                    loadImageAndVideo()
                 }
 
                 override fun showPermissionDenied(permission: String?, permanentlyDenied: Boolean) {
