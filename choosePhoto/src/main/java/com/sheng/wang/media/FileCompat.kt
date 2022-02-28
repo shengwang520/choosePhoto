@@ -26,7 +26,7 @@ import io.reactivex.schedulers.Schedulers
  * <p>onLoadFileListener 获取数据成功回调，没有父文件信息</p>
  */
 
-class FileCompat @JvmOverloads constructor(
+class FileCompat constructor(
     private val context: Context
 ) : ILoadFile {
     private val listImages: MutableList<FileFolder> = ArrayList()
@@ -41,52 +41,44 @@ class FileCompat @JvmOverloads constructor(
         listImages.clear()
         tmpDir.clear()
         listImages.add(all)
-        Observable
-            .create<FileBean> { e ->
-                val mCursor =
-                    context.contentResolver.query(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        arrayOf(
-                            MediaStore.Images.ImageColumns.DATA,
-                            MediaStore.Images.Media._ID,
-                            MediaStore.Images.Media.WIDTH,
-                            MediaStore.Images.Media.HEIGHT,
-                            MediaStore.Images.Media.DATE_ADDED
-                        ),
-                        "",
-                        null,
-                        MediaStore.MediaColumns.DATE_ADDED + " DESC"
-                    )
-                if (mCursor != null && mCursor.moveToFirst()) {
-                    do {
-                        val path =
-                            mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
-                        val id =
-                            mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID))
-                        val uri =
-                            Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id)
-                                .toString()
-                        val width =
-                            mCursor.getInt(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.WIDTH))
-                        val height =
-                            mCursor.getInt(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.HEIGHT))
-                        val time =
-                            mCursor.getLong(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_ADDED))
-                        val fileBean = FileBean(false, path)
-                        fileBean.fileUri = uri
-                        fileBean.width = width
-                        fileBean.height = height
-                        fileBean.createTime = time
-                        Logger.d("file start query:$fileBean")
-                        e.onNext(fileBean)
-                    } while (mCursor.moveToNext())
-                }
-                mCursor?.close()
-                e.onComplete()
+        Observable.create<FileBean> { e ->
+            val mCursor = context.contentResolver.query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, arrayOf(
+                    MediaStore.Images.ImageColumns.DATA,
+                    MediaStore.Images.Media._ID,
+                    MediaStore.Images.Media.WIDTH,
+                    MediaStore.Images.Media.HEIGHT,
+                    MediaStore.Images.Media.DATE_ADDED
+                ), "", null, MediaStore.MediaColumns.DATE_ADDED + " DESC"
+            )
+            if (mCursor != null && mCursor.moveToFirst()) {
+                do {
+                    val path =
+                        mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
+                    val id =
+                        mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID))
+                    val uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id)
+                        .toString()
+                    val width =
+                        mCursor.getInt(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.WIDTH))
+                    val height =
+                        mCursor.getInt(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.HEIGHT))
+                    val time =
+                        mCursor.getLong(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_ADDED))
+                    val fileBean = FileBean(false, path)
+                    fileBean.fileUri = uri
+                    fileBean.width = width
+                    fileBean.height = height
+                    fileBean.createTime = time
+                    Logger.d("file start query:$fileBean")
+                    e.onNext(fileBean)
+                } while (mCursor.moveToNext())
             }
+            mCursor?.close()
+            e.onComplete()
+        }
             .filter { fileBean ->
-                (fileBean.width >= FileOptions.width
-                        || fileBean.height >= FileOptions.height)
+                (fileBean.width >= FileOptions.width || fileBean.height >= FileOptions.height)
             }
             .filter { fileBean -> fileBean.isExists }
             .map { fileBean ->
@@ -158,43 +150,42 @@ class FileCompat @JvmOverloads constructor(
         listImages.clear()
         tmpDir.clear()
         listImages.add(all)
-        Observable
-            .create<FileBean> { e ->
-                val mCursor =
-                    context.contentResolver.query(
-                        MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                        videoProjection, "", null,
-                        MediaStore.MediaColumns.DATE_ADDED + " DESC"
-                    )
-                if (mCursor != null && mCursor.moveToFirst()) {
-                    do {
-                        val path =
-                            mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)) // 路径
-                        val duration =
-                            mCursor.getInt(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION))
-                                .toLong() // 时长 （毫秒）
-                        val id =
-                            mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID))
-                        val uri =
-                            Uri.withAppendedPath(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id)
-                                .toString()
-                        val time =
-                            mCursor.getLong(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_ADDED))
-                        val imageBean = FileBean(false, path, IFile.Type.FILE_TYPE_VIDEO)
-                        imageBean.fileUri = uri
-                        imageBean.videoTime = duration
-                        imageBean.createTime = time
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                            imageBean.rotation =
-                                mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.ORIENTATION))
-                        }
-                        Logger.d("file query video:$imageBean")
-                        e.onNext(imageBean)
-                    } while (mCursor.moveToNext())
-                }
-                mCursor?.close()
-                e.onComplete()
+        Observable.create<FileBean> { e ->
+            val mCursor = context.contentResolver.query(
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                videoProjection,
+                "",
+                null,
+                MediaStore.MediaColumns.DATE_ADDED + " DESC"
+            )
+            if (mCursor != null && mCursor.moveToFirst()) {
+                do {
+                    val path =
+                        mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)) // 路径
+                    val duration =
+                        mCursor.getInt(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION))
+                            .toLong() // 时长 （毫秒）
+                    val id =
+                        mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID))
+                    val uri = Uri.withAppendedPath(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id)
+                        .toString()
+                    val time =
+                        mCursor.getLong(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_ADDED))
+                    val imageBean = FileBean(false, path, IFile.Type.FILE_TYPE_VIDEO)
+                    imageBean.fileUri = uri
+                    imageBean.videoTime = duration
+                    imageBean.createTime = time
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        imageBean.rotation =
+                            mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.ORIENTATION))
+                    }
+                    Logger.d("file query video:$imageBean")
+                    e.onNext(imageBean)
+                } while (mCursor.moveToNext())
             }
+            mCursor?.close()
+            e.onComplete()
+        }
             .filter { imageBean -> //视频时长限制在10-30秒
                 imageBean.videoTime >= FileOptions.videoMinTime && imageBean.videoTime <= FileOptions.videoMaxTime
             }
