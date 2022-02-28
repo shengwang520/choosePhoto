@@ -60,8 +60,9 @@ object FileUtils {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
         } else {
-            intent.setDataAndType(Uri.fromFile(File(apkPath)),
-                "application/vnd.android.package-archive")
+            intent.setDataAndType(
+                Uri.fromFile(File(apkPath)), "application/vnd.android.package-archive"
+            )
         }
         context.startActivity(intent)
     }
@@ -189,7 +190,7 @@ object FileUtils {
      *
      * @param path 原文件路径
      */
-    private fun getFileNewName(path: String?): String {
+    fun getFileNewName(path: String?): String {
         try {
             return System.currentTimeMillis().toString() + path!!.substring(path.lastIndexOf("."))
         } catch (e: Exception) {

@@ -5,7 +5,7 @@
 * maven { url '<https://jitpack.io>' }
 
 ## Step 2. Add the dependency
-* api 'com.github.shengwang520:choosePhoto:1.0.14'
+* api 'com.github.shengwang520:choosePhoto:1.0.20'
 
 # 使用
 * 需要权限：android.permission.READ_EXTERNAL_STORAGE，android.permission.WRITE_EXTERNAL_STORAGE
@@ -66,6 +66,9 @@
 * String path=FileBean.getFilePathQ(context);
 
 ## Changelog
+
+### Version:1.0.20
+* 升级编辑环境，开放部分方法调用权限
 
 ### Version:1.0.19
 * 修复图片和视频一起获取时数据重复问题
