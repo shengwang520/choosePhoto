@@ -5,7 +5,7 @@
 * maven { url '<https://jitpack.io>' }
 
 ## Step 2. Add the dependency
-* api 'com.github.shengwang520:choosePhoto:1.0.21'
+* api 'com.github.shengwang520:choosePhoto:1.0.22'
 
 # 使用
 * 需要权限：android.permission.READ_EXTERNAL_STORAGE，android.permission.WRITE_EXTERNAL_STORAGE
@@ -66,6 +66,9 @@
 * String path=FileBean.getFilePathQ(context);
 
 ## Changelog
+
+### Version:1.0.22
+* 修复获取视频方向问题
 
 ### Version:1.0.21
 * 新增图片保存到相册方法

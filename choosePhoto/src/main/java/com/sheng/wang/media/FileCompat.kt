@@ -33,8 +33,7 @@ class FileCompat constructor(
     private val tmpDir = HashMap<String, Int>() //临时的辅助类，用于防止同一个文件夹的多次扫描
 
     override fun loadImages(
-        onLoadFileFolderListener: CallBack.OnLoadFileFolderListener?,
-        onLoadErrorListener: CallBack.OnLoadErrorListener?
+        onLoadFileFolderListener: CallBack.OnLoadFileFolderListener?, onLoadErrorListener: CallBack.OnLoadErrorListener?
     ) {
         val all = FileFolder()
         all.name = context.getString(R.string.all_images)
@@ -53,18 +52,12 @@ class FileCompat constructor(
             )
             if (mCursor != null && mCursor.moveToFirst()) {
                 do {
-                    val path =
-                        mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
-                    val id =
-                        mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID))
-                    val uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id)
-                        .toString()
-                    val width =
-                        mCursor.getInt(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.WIDTH))
-                    val height =
-                        mCursor.getInt(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.HEIGHT))
-                    val time =
-                        mCursor.getLong(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_ADDED))
+                    val path = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
+                    val id = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID))
+                    val uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id).toString()
+                    val width = mCursor.getInt(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.WIDTH))
+                    val height = mCursor.getInt(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.HEIGHT))
+                    val time = mCursor.getLong(mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_ADDED))
                     val fileBean = FileBean(false, path)
                     fileBean.fileUri = uri
                     fileBean.width = width
@@ -76,48 +69,42 @@ class FileCompat constructor(
             }
             mCursor?.close()
             e.onComplete()
-        }
-            .filter { fileBean ->
-                (fileBean.width >= FileOptions.width || fileBean.height >= FileOptions.height)
+        }.filter { fileBean ->
+            (fileBean.width >= FileOptions.width || fileBean.height >= FileOptions.height)
+        }.filter { fileBean -> fileBean.isExists }.map { fileBean ->
+            all.images.add(fileBean)
+            all.firstFileBean = all.images[0]
+
+            // 获取该图片的父路径名
+            val fileParentName = fileBean.fileParentName
+            val imageFolder: FileFolder?
+            if (!tmpDir.containsKey(fileParentName)) {
+                // 初始化imageFolder
+                imageFolder = FileFolder()
+                imageFolder.name = fileParentName
+                imageFolder.firstFileBean = fileBean
+                listImages.add(imageFolder)
+                tmpDir[fileParentName] = listImages.indexOf(imageFolder)
+            } else {
+                imageFolder = listImages[tmpDir[fileParentName]!!]
             }
-            .filter { fileBean -> fileBean.isExists }
-            .map { fileBean ->
-                all.images.add(fileBean)
-                all.firstFileBean = all.images[0]
-
-                // 获取该图片的父路径名
-                val fileParentName = fileBean.fileParentName
-                val imageFolder: FileFolder?
-                if (!tmpDir.containsKey(fileParentName)) {
-                    // 初始化imageFolder
-                    imageFolder = FileFolder()
-                    imageFolder.name = fileParentName
-                    imageFolder.firstFileBean = fileBean
-                    listImages.add(imageFolder)
-                    tmpDir[fileParentName] = listImages.indexOf(imageFolder)
-                } else {
-                    imageFolder = listImages[tmpDir[fileParentName]!!]
-                }
-                imageFolder.images.add(fileBean)
-                imageFolder
+            imageFolder.images.add(fileBean)
+            imageFolder
+        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<FileFolder> {
+            override fun onSubscribe(d: Disposable) {
             }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<FileFolder> {
-                override fun onSubscribe(d: Disposable) {
-                }
 
-                override fun onNext(imageFolder: FileFolder) {
-                }
+            override fun onNext(imageFolder: FileFolder) {
+            }
 
-                override fun onError(e: Throwable) {
-                    onLoadErrorListener?.onError()
-                }
+            override fun onError(e: Throwable) {
+                onLoadErrorListener?.onError()
+            }
 
-                override fun onComplete() {
-                    onLoadFileFolderListener?.onSuccess(listImages)
-                }
-            })
+            override fun onComplete() {
+                onLoadFileFolderListener?.onSuccess(listImages)
+            }
+        })
     }
 
     /**
@@ -134,16 +121,12 @@ class FileCompat constructor(
             )
         } else {
             arrayOf(
-                MediaStore.Video.VideoColumns.DATA,
-                MediaStore.Video.Media.DURATION,
-                MediaStore.Video.Media._ID,
-                MediaStore.Video.Media.DATE_ADDED
+                MediaStore.Video.VideoColumns.DATA, MediaStore.Video.Media.DURATION, MediaStore.Video.Media._ID, MediaStore.Video.Media.DATE_ADDED
             )
         }
 
     override fun loadVideos(
-        onLoadFileFolderListener: CallBack.OnLoadFileFolderListener?,
-        onLoadErrorListener: CallBack.OnLoadErrorListener?
+        onLoadFileFolderListener: CallBack.OnLoadFileFolderListener?, onLoadErrorListener: CallBack.OnLoadErrorListener?
     ) {
         val all = FileFolder()
         all.name = context.getString(R.string.all_videos)
@@ -152,32 +135,21 @@ class FileCompat constructor(
         listImages.add(all)
         Observable.create<FileBean> { e ->
             val mCursor = context.contentResolver.query(
-                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                videoProjection,
-                "",
-                null,
-                MediaStore.MediaColumns.DATE_ADDED + " DESC"
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI, videoProjection, "", null, MediaStore.MediaColumns.DATE_ADDED + " DESC"
             )
             if (mCursor != null && mCursor.moveToFirst()) {
                 do {
-                    val path =
-                        mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)) // 路径
-                    val duration =
-                        mCursor.getInt(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION))
-                            .toLong() // 时长 （毫秒）
-                    val id =
-                        mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID))
-                    val uri = Uri.withAppendedPath(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id)
-                        .toString()
-                    val time =
-                        mCursor.getLong(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_ADDED))
+                    val path = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)) // 路径
+                    val duration = mCursor.getInt(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION)).toLong() // 时长 （毫秒）
+                    val id = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID))
+                    val uri = Uri.withAppendedPath(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id).toString()
+                    val time = mCursor.getLong(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_ADDED))
                     val imageBean = FileBean(false, path, IFile.Type.FILE_TYPE_VIDEO)
                     imageBean.fileUri = uri
                     imageBean.videoTime = duration
                     imageBean.createTime = time
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        imageBean.rotation =
-                            mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.ORIENTATION))
+                        imageBean.rotation = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Video.Media.ORIENTATION))
                     }
                     Logger.d("file query video:$imageBean")
                     e.onNext(imageBean)
@@ -185,63 +157,55 @@ class FileCompat constructor(
             }
             mCursor?.close()
             e.onComplete()
-        }
-            .filter { imageBean -> //视频时长限制在10-30秒
-                imageBean.videoTime >= FileOptions.videoMinTime && imageBean.videoTime <= FileOptions.videoMaxTime
+        }.filter { imageBean -> //视频时长限制在10-30秒
+            imageBean.videoTime >= FileOptions.videoMinTime && imageBean.videoTime <= FileOptions.videoMaxTime
+        }.filter { fileBean -> fileBean.isExists }.map { imageBean ->
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                imageBean.rotation = getRotation(imageBean.filePath)
             }
-            .filter { fileBean -> fileBean.isExists }
-            .map { imageBean ->
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    imageBean.rotation = getRotation(imageBean.filePath)
-                }
-                imageBean
+            imageBean
+        }.map { imageBean ->
+            all.images.add(imageBean)
+            all.firstFileBean = all.images[0]
+
+            // 获取该图片的父路径名
+            val fileParentName = imageBean.fileParentName
+            val imageFolder: FileFolder?
+            if (!tmpDir.containsKey(fileParentName)) {
+                // 初始化imageFolder
+                imageFolder = FileFolder()
+                imageFolder.name = fileParentName
+                imageFolder.firstFileBean = imageBean
+                listImages.add(imageFolder)
+                tmpDir[fileParentName] = listImages.indexOf(imageFolder)
+            } else {
+                imageFolder = listImages[tmpDir[fileParentName]!!]
             }
-            .map { imageBean ->
-                all.images.add(imageBean)
-                all.firstFileBean = all.images[0]
-
-                // 获取该图片的父路径名
-                val fileParentName = imageBean.fileParentName
-                val imageFolder: FileFolder?
-                if (!tmpDir.containsKey(fileParentName)) {
-                    // 初始化imageFolder
-                    imageFolder = FileFolder()
-                    imageFolder.name = fileParentName
-                    imageFolder.firstFileBean = imageBean
-                    listImages.add(imageFolder)
-                    tmpDir[fileParentName] = listImages.indexOf(imageFolder)
-                } else {
-                    imageFolder = listImages[tmpDir[fileParentName]!!]
-                }
-                imageFolder.images.add(imageBean)
-                imageFolder
+            imageFolder.images.add(imageBean)
+            imageFolder
+        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<FileFolder> {
+            override fun onSubscribe(d: Disposable) {
+                Logger.d("find video onSubscribe")
             }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<FileFolder> {
-                override fun onSubscribe(d: Disposable) {
-                    Logger.d("find video onSubscribe")
-                }
 
-                override fun onNext(imageFolder: FileFolder) {
-                    Logger.d("find video onNext")
-                }
+            override fun onNext(imageFolder: FileFolder) {
+                Logger.d("find video onNext")
+            }
 
-                override fun onError(e: Throwable) {
-                    Logger.d("find video onError:$e")
-                    onLoadErrorListener?.onError()
-                }
+            override fun onError(e: Throwable) {
+                Logger.d("find video onError:$e")
+                onLoadErrorListener?.onError()
+            }
 
-                override fun onComplete() {
-                    Logger.d("find video complete")
-                    onLoadFileFolderListener?.onSuccess(listImages)
-                }
-            })
+            override fun onComplete() {
+                Logger.d("find video complete")
+                onLoadFileFolderListener?.onSuccess(listImages)
+            }
+        })
     }
 
     override fun loadImageAndVideos(
-        onLoadFileListener: CallBack.OnLoadFileListener?,
-        onLoadErrorListener: CallBack.OnLoadErrorListener?
+        onLoadFileListener: CallBack.OnLoadFileListener?, onLoadErrorListener: CallBack.OnLoadErrorListener?
     ) {
         val images: MutableList<FileBean> = ArrayList()
         //先获取图片
@@ -269,8 +233,7 @@ class FileCompat constructor(
         try {
             val mediaMetadataRetriever = MediaMetadataRetriever()
             mediaMetadataRetriever.setDataSource(videoUrl)
-            val rotation =
-                mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION)
+            val rotation = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION)
             Logger.d("video rotation:$rotation")
             return rotation
         } catch (e: Exception) {
