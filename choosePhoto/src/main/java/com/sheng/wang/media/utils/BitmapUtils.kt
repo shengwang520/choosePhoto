@@ -270,7 +270,7 @@ object BitmapUtils {
                 )
                 contentValues.put(
                     MediaStore.MediaColumns.DATE_EXPIRES, (System.currentTimeMillis() + DateUtils.DAY_IN_MILLIS) / 1000
-                );
+                )
                 contentValues.put(MediaStore.MediaColumns.IS_PENDING, 1)
             }
             contentValues.put(
@@ -281,6 +281,8 @@ object BitmapUtils {
             contentValues.put(
                 MediaStore.MediaColumns.DATE_MODIFIED, System.currentTimeMillis() / 1000
             )
+            contentValues.put(MediaStore.MediaColumns.WIDTH, bitmap.width)
+            contentValues.put(MediaStore.MediaColumns.HEIGHT, bitmap.height)
 
             val resolver = context.contentResolver
             val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
