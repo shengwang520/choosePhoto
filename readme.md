@@ -5,7 +5,7 @@
 * maven { url '<https://jitpack.io>' }
 
 ## Step 2. Add the dependency
-* api 'com.github.shengwang520:choosePhoto:1.0.23'
+* api 'com.github.shengwang520:choosePhoto:1.0.24'
 
 # 使用
 * 需要权限：android.permission.READ_EXTERNAL_STORAGE，android.permission.WRITE_EXTERNAL_STORAGE
@@ -66,6 +66,9 @@
 * String path=FileBean.getFilePathQ(context);
 
 ## Changelog
+
+### Version:1.0.24
+* 新增图片压缩方法
 
 ### Version:1.0.23
 * 优化图片插入相册逻辑

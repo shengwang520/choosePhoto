@@ -60,63 +60,70 @@ object BitmapUtils {
     }
 
     /**
-     * 开始压缩图片
-     *
-     * @param path 原图片路径
+     * 压缩图片
      */
-    fun startCompressImage(context: Context, path: String, callback: Callback?) {
-        Observable.fromArray(path).map { s ->
+    fun startCompressImage(context: Context, path: String): Observable<String> {
+        return Observable.fromArray(path).map {
             var bitmap: Bitmap
             try {
-                bitmap = BitmapFactory.decodeFile(s)
+                bitmap = BitmapFactory.decodeFile(it)
             } catch (e: OutOfMemoryError) {
                 e.printStackTrace()
                 // 提示系统，进行内存回收
                 System.gc()
                 val opts = BitmapFactory.Options()
                 opts.inSampleSize = 4
-                bitmap = BitmapFactory.decodeFile(s, opts)
+                bitmap = BitmapFactory.decodeFile(it, opts)
                 //压缩图片重新加载
             }
             bitmap
-        }.map { bitmap ->
-            var bitmap = bitmap
+        }.map {
+            var bitmap = it
             val d = getBitmapDegree(path)
             Logger.d("-degree->$d")
             if (d > 0) {
                 bitmap = rotateBitmapByDegree(bitmap, d)!!
             }
             bitmap
-        }.map { bitmap ->
-            var bitmap = bitmap
+        }.map {
+            var bitmap = it
             if (isValid(bitmap.width.toFloat(), bitmap.height.toFloat())) { //按比例缩放
                 bitmap = zoomImg(bitmap)
             }
             bitmap
-        }.map { bitmap ->
+        }.map {
             val out = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+            it.compress(Bitmap.CompressFormat.PNG, 100, out)
             var size = out.toByteArray().size / 1024f
             Logger.d("压缩放缩后的图片大小-》$size")
             if (size > 1000) {
                 out.reset()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 99, out)
+                it.compress(Bitmap.CompressFormat.JPEG, 99, out)
                 size = out.toByteArray().size / 1024f
                 Logger.d("压缩99后的图片大小-》$size")
             }
-            bitmap.recycle()
+            it.recycle()
             out
-        }.map { out ->
+        }.map {
             val imgPath = getCacheImageFile(context) + "/" + System.currentTimeMillis() + ".jpg"
             val f = File(imgPath)
             val fOut = FileOutputStream(f)
-            out.writeTo(fOut)
-            out.flush()
-            out.reset()
-            out.close()
+            it.writeTo(fOut)
+            it.flush()
+            it.reset()
+            it.close()
             fOut.close()
             imgPath
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<String> {
+        }
+    }
+
+    /**
+     * 开始压缩图片
+     *
+     * @param path 原图片路径
+     */
+    fun startCompressImage(context: Context, path: String, callback: Callback?) {
+        startCompressImage(context, path).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<String> {
             override fun onSubscribe(d: Disposable) {}
             override fun onNext(s: String) {
                 callback?.onComplete(s)
