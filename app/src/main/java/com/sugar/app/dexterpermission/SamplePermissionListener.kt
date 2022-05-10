@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sugar.apptest.dexterpermission
+package com.sugar.app.dexterpermission
 
-import com.sugar.apptest.dexterpermission.DexterPermissionsUtil.CallBack
+import com.sugar.app.dexterpermission.DexterPermissionsUtil.CallBack
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.single.BasePermissionListener

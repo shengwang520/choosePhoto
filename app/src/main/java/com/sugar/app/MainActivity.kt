@@ -1,4 +1,4 @@
-package com.sugar.apptest
+package com.sugar.app
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,8 +7,9 @@ import com.sheng.wang.media.FileCompat
 import com.sheng.wang.media.impl.CallBack
 import com.sheng.wang.media.model.FileBean
 import com.sheng.wang.media.model.FileFolder
-import com.sugar.apptest.dexterpermission.DexterPermissionsUtil
-import com.sugar.apptest.dexterpermission.DexterPermissionsUtil.RECORD_WRITE_PERMISSION
+import com.sugar.app.dexterpermission.DexterPermissionsUtil
+import com.sugar.app.dexterpermission.DexterPermissionsUtil.RECORD_WRITE_PERMISSION
+import com.sugar.apptest.R
 
 /**
  * 使用实例

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sugar.apptest">
+    package="com.sugar.app">
 
     <application android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChoosePhoto">
 
-        <activity android:name=".MainActivity"
+        <activity android:name="com.sugar.app.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

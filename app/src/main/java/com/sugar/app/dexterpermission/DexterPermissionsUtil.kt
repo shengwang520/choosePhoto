@@ -1,4 +1,4 @@
-package com.sugar.apptest.dexterpermission
+package com.sugar.app.dexterpermission
 
 import android.Manifest
 import android.app.Activity
