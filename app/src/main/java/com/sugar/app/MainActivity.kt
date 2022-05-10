@@ -9,7 +9,6 @@ import com.sheng.wang.media.model.FileBean
 import com.sheng.wang.media.model.FileFolder
 import com.sugar.app.dexterpermission.DexterPermissionsUtil
 import com.sugar.app.dexterpermission.DexterPermissionsUtil.RECORD_WRITE_PERMISSION
-import com.sugar.apptest.R
 
 /**
  * 使用实例
