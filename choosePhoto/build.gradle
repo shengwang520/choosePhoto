@@ -18,11 +18,11 @@ afterEvaluate {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
 
     defaultConfig {
         minSdk 21
-        targetSdk 31
+        targetSdk 32
     }
 
     buildTypes {
