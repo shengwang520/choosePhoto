@@ -335,7 +335,7 @@ object BitmapUtils {
             )
 
             val resolver = context.contentResolver
-            val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            val uri = resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues)
             if (uri != null) {
                 val file = File(videoPath!!)
                 resolver.openOutputStream(uri).use { os ->
