@@ -1,21 +1,28 @@
-# choosePhoto  图片选择库 适配安卓10+
+# choosePhoto 图片选择库 适配安卓10+
 
 # 引入
+
 ## Step 1. Add the JitPack repository to your build file
+
 * maven { url '<https://jitpack.io>' }
 
 ## Step 2. Add the dependency
-* api 'com.github.shengwang520:choosePhoto:1.0.24'
+
+* api 'com.github.shengwang520:choosePhoto:1.0.25'
 
 # 使用
+
 * 需要权限：android.permission.READ_EXTERNAL_STORAGE，android.permission.WRITE_EXTERNAL_STORAGE
 
 ## 1.获取图片
+
 ### 配置图片获取最小宽高，满足1条即为有效数据
+
 * FileOptions.width=500;
 * FileOptions.height=500;
 
 ### 获取数据
+
 * private fun loadImage() {
 
         val fileCompat = FileCompat(this)
@@ -28,9 +35,10 @@
                 TODO("Not yet implemented")
             }
         })
-    }
+  }
 
 ## 2.获取视频
+
 * private fun loadVideo() {
 
         val fileCompat = FileCompat(this)
@@ -43,8 +51,10 @@
                 TODO("Not yet implemented")
             }
         })
-    }
+  }
+
 ## 3.获取图片和视频
+
 * private fun loadImageAndVideo() {
 
         val fileCompat = FileCompat(this)
@@ -57,73 +67,97 @@
                 TODO("Not yet implemented")
             }
         })
-    }
+  }
 
 ## 4.获取上传文件路径
+
 * String path=FileBean.getUploadFilePath(context);
 
 ## 5.获取显示文件的地址（安卓10以上路径是Uri）
+
 * String path=FileBean.getFilePathQ(context);
 
 ## Changelog
 
+### Version:1.0.25
+
+* 新增视频插入相册逻辑
+
 ### Version:1.0.24
+
 * 新增图片压缩方法
 
 ### Version:1.0.23
+
 * 优化图片插入相册逻辑
 
 ### Version:1.0.22
+
 * 修复获取视频方向问题
 
 ### Version:1.0.21
+
 * 新增图片保存到相册方法
 
 ### Version:1.0.20
+
 * 升级编辑环境，开放部分方法调用权限
 
 ### Version:1.0.19
+
 * 修复图片和视频一起获取时数据重复问题
 
 ### Version:1.0.17
+
 * 调整获取图片和视频排序为倒叙
 
 ### Version:1.0.15
+
 * 新增bitmap保存方法
 
 ### Version:1.0.14
+
 * 修复FileBean数据判断equals方法
 
 ### Version:1.0.13
+
 * 重新设计回调，调整使用方式，与之前的版本不兼容，请参考最新文档使用
 * 新增获取所有图片和视频数据，按照时间降序
 
 ### Version:1.0.12
+
 * 修复图片查询失败
 
 ### Version:1.0.11
+
 * 新增图片压缩方法
 
 ### Version:1.0.10
+
 * 调整代码语言为kotlin
 * 新增设置视频选择范围配置
 * 修复部分手机获取不到文件后缀出现的崩溃问题
 
 ### Version:1.0.09
+
 * 升级编译环境为7.0.1
 * 适配安卓12
 
 ### Version:1.0.07
+
 * 移除权限判断，添加demo示例
 
 ### Version:1.0.06
+
 * 删除无用资源库，减轻sdk大小
 
 ### Version:1.0.05
+
 * 添加安卓10+适配
 * 移除无用代码
 
 ### Version:1.0.04
+
 * 初始版本
 
 ## License

@@ -11,18 +11,18 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.shengwang520'
                 artifactId = 'choosePhoto'
-                version = "1.0.24"
+                version = "1.0.25"
             }
         }
     }
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     defaultConfig {
         minSdk 21
-        targetSdk 32
+        targetSdk 33
     }
 
     buildTypes {
@@ -45,7 +45,7 @@ android {
 dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.android.material:material:1.5.0'
     api 'com.orhanobut:logger:1.4'//打印数据框架
     api 'com.squareup.okhttp3:okhttp:4.2.1'
     //RxJava库的引用

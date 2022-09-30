@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
@@ -21,6 +22,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.nio.file.Files
 
 /**
  * 选择单张图片处理逻辑
@@ -303,6 +305,55 @@ object BitmapUtils {
             e.printStackTrace()
         } finally {
             bitmap.recycle()
+        }
+    }
+
+    /**
+     * 保存视频到相册
+     */
+    fun saveVideo2Gallery(context: Context?, videoPath: String?) {
+        if (context == null) return
+        if (TextUtils.isEmpty(videoPath)) return
+        try {
+            val contentValues = ContentValues()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                contentValues.put(
+                    MediaStore.MediaColumns.RELATIVE_PATH, (Environment.DIRECTORY_DCIM + File.separator) + context.packageName
+                )
+                contentValues.put(
+                    MediaStore.MediaColumns.DATE_EXPIRES, (System.currentTimeMillis() + DateUtils.DAY_IN_MILLIS) / 1000
+                )
+                contentValues.put(MediaStore.MediaColumns.IS_PENDING, 1)
+            }
+            contentValues.put(
+                MediaStore.MediaColumns.DISPLAY_NAME, System.currentTimeMillis().toString() + ".mp4"
+            )
+            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4")
+            contentValues.put(MediaStore.MediaColumns.DATE_ADDED, System.currentTimeMillis() / 1000)
+            contentValues.put(
+                MediaStore.MediaColumns.DATE_MODIFIED, System.currentTimeMillis() / 1000
+            )
+
+            val resolver = context.contentResolver
+            val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            if (uri != null) {
+                val file = File(videoPath!!)
+                resolver.openOutputStream(uri).use { os ->
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Files.copy(file.toPath(), os)
+                    } else {
+                        resolver.openInputStream(Uri.parse(videoPath)).use { inputStream ->
+                            val buffer = ByteArray(1024)
+                            var byteRead: Int
+                            while (-1 != inputStream!!.read(buffer).also { byteRead = it }) {
+                                os?.write(buffer, 0, byteRead)
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
