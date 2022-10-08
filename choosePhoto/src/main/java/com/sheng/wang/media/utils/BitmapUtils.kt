@@ -280,7 +280,7 @@ object BitmapUtils {
                 contentValues.put(
                     MediaStore.MediaColumns.DATE_EXPIRES, (System.currentTimeMillis() + DateUtils.DAY_IN_MILLIS) / 1000
                 )
-                contentValues.put(MediaStore.MediaColumns.IS_PENDING, 1)
+                contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0)
             }
             contentValues.put(
                 MediaStore.MediaColumns.DISPLAY_NAME, System.currentTimeMillis().toString() + ".jpg"
@@ -323,7 +323,7 @@ object BitmapUtils {
                 contentValues.put(
                     MediaStore.MediaColumns.DATE_EXPIRES, (System.currentTimeMillis() + DateUtils.DAY_IN_MILLIS) / 1000
                 )
-                contentValues.put(MediaStore.MediaColumns.IS_PENDING, 1)
+                contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0)
             }
             contentValues.put(
                 MediaStore.MediaColumns.DISPLAY_NAME, System.currentTimeMillis().toString() + ".mp4"

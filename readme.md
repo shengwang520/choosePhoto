@@ -8,7 +8,7 @@
 
 ## Step 2. Add the dependency
 
-* api 'com.github.shengwang520:choosePhoto:1.0.26'
+* api 'com.github.shengwang520:choosePhoto:1.0.27'
 
 # 使用
 
@@ -78,6 +78,10 @@
 * String path=FileBean.getFilePathQ(context);
 
 ## Changelog
+
+### Version:1.0.27
+
+* 优化文件保存到外部存储显示问题
 
 ### Version:1.0.26
 
