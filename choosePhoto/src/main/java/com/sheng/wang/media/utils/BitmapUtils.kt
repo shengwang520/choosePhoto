@@ -29,8 +29,8 @@ import java.nio.file.Files
  * Created by wang on 2016/2/15.
  */
 object BitmapUtils {
-    private const val minSize = 1224 //原图最小边大于1224,等比压缩到1224
     private const val CACHE_IMG = "/CacheImg" //图片缓存目录
+    var minSize = 1080 //原图最小边大于1080,等比压缩到1080
 
     /**
      * 删除图片缓存文件夹
@@ -363,4 +363,5 @@ object BitmapUtils {
          */
         fun onComplete(path: String?)
     }
+
 }
