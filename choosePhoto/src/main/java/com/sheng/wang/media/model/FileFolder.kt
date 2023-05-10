@@ -26,7 +26,7 @@ class FileFolder {
      * 设置已经选中的数据
      */
     fun getImages(chooseData: MutableList<FileBean>?): MutableList<FileBean> {
-        if (chooseData == null || chooseData.isEmpty()) return images
+        if (chooseData.isNullOrEmpty()) return images
         for (choose in chooseData) {
             for (img in images) {
                 if (TextUtils.equals(choose.filePathQ, img.filePathQ)) {

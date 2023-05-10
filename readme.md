@@ -8,11 +8,11 @@
 
 ## Step 2. Add the dependency
 
-* api 'com.github.shengwang520:choosePhoto:1.0.27'
+* api 'com.github.shengwang520:choosePhoto:1.0.29'
 
 # 使用
 
-* 需要权限：android.permission.READ_EXTERNAL_STORAGE，android.permission.WRITE_EXTERNAL_STORAGE
+* 需要权限：android.permission.READ_EXTERNAL_STORAGE
 
 ## 1.获取图片
 
@@ -78,6 +78,10 @@
 * String path=FileBean.getFilePathQ(context);
 
 ## Changelog
+
+### Version:1.0.29
+
+* 优化安卓10图片地址获取
 
 ### Version:1.0.28
 

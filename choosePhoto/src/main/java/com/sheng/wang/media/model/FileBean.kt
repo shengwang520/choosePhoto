@@ -2,7 +2,6 @@ package com.sheng.wang.media.model
 
 import android.content.Context
 import android.os.Build
-import android.os.Environment
 import android.os.Parcel
 import android.os.Parcelable
 import android.text.TextUtils
@@ -110,9 +109,7 @@ class FileBean :
      * 获取安卓Q路径
      */
     val filePathQ: String?
-        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Environment.isExternalStorageLegacy() &&
-            !TextUtils.isEmpty(fileUri)
-        ) {
+        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !TextUtils.isEmpty(fileUri)) {
             fileUri
         } else {
             filePath
@@ -122,10 +119,7 @@ class FileBean :
      * 获取要上传的文件路径
      */
     fun getUploadFilePath(context: Context?): String? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Environment.isExternalStorageLegacy() && !TextUtils.isEmpty(
-                fileUri
-            )
-        ) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !TextUtils.isEmpty(fileUri)) {
             FileUtils.getUri2CachePath(context, filePath, fileUri)
         } else {
             filePath
@@ -136,13 +130,10 @@ class FileBean :
      * 判断文件是否存在
      */
     val isExists: Boolean
-        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Environment.isExternalStorageLegacy() && !TextUtils.isEmpty(
-                fileUri
-            )
-        ) {
+        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !TextUtils.isEmpty(fileUri)) {
             true
         } else {
-            val file = File(filePath!!)
+            val file = File(filePath ?: "")
             file.exists()
         }
 
